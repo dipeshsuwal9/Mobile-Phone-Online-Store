@@ -1,0 +1,151 @@
+.cart-page {
+  padding: 20px 0;
+}
+
+.cart-page h1 {
+  margin-bottom: 30px;
+  color: #2c3e50;
+}
+
+.empty-cart {
+  text-align: center;
+  padding: 60px 20px;
+  background-color: white;
+  border-radius: 8px;
+}
+
+.empty-cart p {
+  font-size: 24px;
+  margin-bottom: 30px;
+  color: #7f8c8d;
+}
+
+.cart-content {
+  display: grid;
+  grid-template-columns: 2fr 1fr;
+  gap: 30px;
+}
+
+.cart-items {
+  display: flex;
+  flex-direction: column;
+  gap: 15px;
+}
+
+.cart-item {
+  background-color: white;
+  padding: 20px;
+  border-radius: 8px;
+  display: grid;
+  grid-template-columns: 2fr 1fr 120px 1fr auto;
+  gap: 20px;
+  align-items: center;
+}
+
+.item-info h3 {
+  font-size: 18px;
+  margin-bottom: 5px;
+  color: #2c3e50;
+}
+
+.item-type {
+  font-size: 14px;
+  color: #7f8c8d;
+}
+
+.item-price p {
+  font-size: 18px;
+  font-weight: 600;
+  color: #27ae60;
+}
+
+.item-quantity {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.qty-btn {
+  width: 30px;
+  height: 30px;
+  border: 1px solid #ddd;
+  background-color: white;
+  cursor: pointer;
+  border-radius: 4px;
+}
+
+.qty-btn:hover {
+  background-color: #f8f9fa;
+}
+
+.item-subtotal p {
+  font-size: 20px;
+  font-weight: bold;
+  color: #2c3e50;
+}
+
+.remove-btn {
+  background-color: transparent;
+  border: none;
+  color: #e74c3c;
+  cursor: pointer;
+  font-size: 20px;
+}
+
+.remove-btn:hover {
+  color: #c0392b;
+}
+
+.cart-summary {
+  background-color: white;
+  padding: 30px;
+  border-radius: 8px;
+  height: fit-content;
+  position: sticky;
+  top: 90px;
+}
+
+.cart-summary h2 {
+  font-size: 24px;
+  margin-bottom: 20px;
+  color: #2c3e50;
+}
+
+.summary-row {
+  display: flex;
+  justify-content: space-between;
+  padding: 10px 0;
+  border-bottom: 1px solid #ecf0f1;
+}
+
+.summary-row.total {
+  font-size: 20px;
+  font-weight: bold;
+  border-top: 2px solid #2c3e50;
+  border-bottom: none;
+  margin-top: 10px;
+  padding-top: 20px;
+}
+
+.cart-summary .btn {
+  margin-top: 15px;
+}
+
+.btn-block {
+  width: 100%;
+}
+
+@media (max-width: 768px) {
+  .cart-content {
+    grid-template-columns: 1fr;
+  }
+
+  .cart-item {
+    grid-template-columns: 1fr;
+    gap: 10px;
+  }
+
+  .cart-summary {
+    position: static;
+  }
+}
