@@ -1,0 +1,87 @@
+import React from "react";
+import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
+import { AuthProvider } from "./context/AuthContext";
+import { CartProvider } from "./context/CartContext";
+import Navbar from "./components/Navbar";
+import ProtectedRoute from "./components/ProtectedRoute";
+
+// Lazy load pages for better performance
+const Home = React.lazy(() => import("./pages/Home"));
+const PhoneCatalog = React.lazy(() => import("./pages/PhoneCatalog"));
+const PhoneDetail = React.lazy(() => import("./pages/PhoneDetail"));
+const Accessories = React.lazy(() => import("./pages/Accessories"));
+const Cart = React.lazy(() => import("./pages/Cart"));
+const Login = React.lazy(() => import("./pages/Login"));
+const Register = React.lazy(() => import("./pages/Register"));
+const Checkout = React.lazy(() => import("./pages/Checkout"));
+const Orders = React.lazy(() => import("./pages/Orders"));
+const OrderDetail = React.lazy(() => import("./pages/OrderDetail"));
+
+const LoadingFallback: React.FC = () => (
+  <div className="flex-center" style={{ minHeight: "60vh" }}>
+    <div
+      className="skeleton"
+      style={{ width: "300px", height: "60px", borderRadius: "1rem" }}
+    />
+  </div>
+);
+
+const App: React.FC = () => {
+  return (
+    <Router>
+      <AuthProvider>
+        <CartProvider>
+          <div className="App">
+            <Navbar />
+            <main className="main-content">
+              <React.Suspense fallback={<LoadingFallback />}>
+                <Routes>
+                  <Route path="/" element={<Home />} />
+                  <Route path="/phones" element={<PhoneCatalog />} />
+                  <Route path="/phones/:id" element={<PhoneDetail />} />
+                  <Route path="/accessories" element={<Accessories />} />
+                  <Route path="/login" element={<Login />} />
+                  <Route path="/register" element={<Register />} />
+                  <Route
+                    path="/cart"
+                    element={
+                      <ProtectedRoute>
+                        <Cart />
+                      </ProtectedRoute>
+                    }
+                  />
+                  <Route
+                    path="/checkout"
+                    element={
+                      <ProtectedRoute>
+                        <Checkout />
+                      </ProtectedRoute>
+                    }
+                  />
+                  <Route
+                    path="/orders"
+                    element={
+                      <ProtectedRoute>
+                        <Orders />
+                      </ProtectedRoute>
+                    }
+                  />
+                  <Route
+                    path="/orders/:id"
+                    element={
+                      <ProtectedRoute>
+                        <OrderDetail />
+                      </ProtectedRoute>
+                    }
+                  />
+                </Routes>
+              </React.Suspense>
+            </main>
+          </div>
+        </CartProvider>
+      </AuthProvider>
+    </Router>
+  );
+};
+
+export default App;

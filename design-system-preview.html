@@ -1,0 +1,304 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Mobile Store - Design System Preview</title>
+    <style>
+      * {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+      }
+
+      body {
+        font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "Roboto",
+          "Oxygen", "Ubuntu", sans-serif;
+        background: linear-gradient(180deg, #fafafa 0%, #f0f4ff 100%);
+        padding: 3rem;
+      }
+
+      .container {
+        max-width: 1200px;
+        margin: 0 auto;
+      }
+
+      h1 {
+        font-size: 3rem;
+        background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+        -webkit-background-clip: text;
+        -webkit-text-fill-color: transparent;
+        background-clip: text;
+        margin-bottom: 1rem;
+      }
+
+      h2 {
+        font-size: 2rem;
+        color: #262626;
+        margin: 2rem 0 1rem;
+      }
+
+      .color-grid {
+        display: grid;
+        grid-template-columns: repeat(auto-fill, minmax(150px, 1fr));
+        gap: 1rem;
+        margin-bottom: 3rem;
+      }
+
+      .color-box {
+        padding: 2rem 1rem;
+        border-radius: 1rem;
+        text-align: center;
+        color: white;
+        font-weight: 600;
+        box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
+      }
+
+      .gradient-grid {
+        display: grid;
+        grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+        gap: 1.5rem;
+        margin-bottom: 3rem;
+      }
+
+      .gradient-box {
+        height: 150px;
+        border-radius: 1.5rem;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        color: white;
+        font-weight: 700;
+        font-size: 1.25rem;
+        box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1);
+        transition: transform 250ms;
+      }
+
+      .gradient-box:hover {
+        transform: translateY(-4px);
+      }
+
+      .component-showcase {
+        background: white;
+        padding: 2rem;
+        border-radius: 1.5rem;
+        margin-bottom: 2rem;
+        box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
+      }
+
+      .btn {
+        display: inline-flex;
+        align-items: center;
+        gap: 0.5rem;
+        padding: 0.75rem 1.5rem;
+        font-size: 1rem;
+        font-weight: 600;
+        border: none;
+        border-radius: 0.75rem;
+        cursor: pointer;
+        transition: all 250ms;
+        margin: 0.5rem;
+      }
+
+      .btn-primary {
+        background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+        color: white;
+        box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
+      }
+
+      .btn-primary:hover {
+        transform: translateY(-2px);
+        box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1);
+      }
+
+      .btn-secondary {
+        background: linear-gradient(135deg, #f093fb 0%, #f5576c 100%);
+        color: white;
+      }
+
+      .btn-success {
+        background: linear-gradient(135deg, #4facfe 0%, #00f2fe 100%);
+        color: white;
+      }
+
+      .card {
+        background: white;
+        padding: 1.5rem;
+        border-radius: 1rem;
+        box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
+        border: 1px solid #e5e5e5;
+        margin: 1rem 0;
+      }
+
+      .badge {
+        display: inline-block;
+        padding: 0.25rem 0.75rem;
+        border-radius: 9999px;
+        font-size: 0.875rem;
+        font-weight: 600;
+        margin: 0.25rem;
+      }
+
+      .badge-primary {
+        background: #e0eaff;
+        color: #4338ca;
+      }
+
+      .badge-success {
+        background: #d1fae5;
+        color: #047857;
+      }
+
+      .badge-warning {
+        background: #fef3c7;
+        color: #d97706;
+      }
+
+      .badge-error {
+        background: #fee2e2;
+        color: #dc2626;
+      }
+
+      @keyframes fadeIn {
+        from {
+          opacity: 0;
+          transform: translateY(20px);
+        }
+        to {
+          opacity: 1;
+          transform: translateY(0);
+        }
+      }
+
+      .animate {
+        animation: fadeIn 600ms ease-out;
+      }
+    </style>
+  </head>
+  <body>
+    <div class="container animate">
+      <h1>🎨 Mobile Store Design System</h1>
+      <p style="color: #737373; font-size: 1.25rem; margin-bottom: 3rem">
+        A modern, eye-soothing design system for your mobile phone store
+      </p>
+
+      <h2>Primary Colors</h2>
+      <div class="color-grid">
+        <div class="color-box" style="background: #f0f4ff; color: #312e81">
+          50
+        </div>
+        <div class="color-box" style="background: #e0eaff; color: #312e81">
+          100
+        </div>
+        <div class="color-box" style="background: #c7d7fe; color: #312e81">
+          200
+        </div>
+        <div class="color-box" style="background: #a5b8fc">300</div>
+        <div class="color-box" style="background: #8b93f8">400</div>
+        <div class="color-box" style="background: #6366f1">500</div>
+        <div class="color-box" style="background: #4f46e5">600</div>
+        <div class="color-box" style="background: #4338ca">700</div>
+        <div class="color-box" style="background: #3730a3">800</div>
+        <div class="color-box" style="background: #312e81">900</div>
+      </div>
+
+      <h2>Beautiful Gradients</h2>
+      <div class="gradient-grid">
+        <div
+          class="gradient-box"
+          style="background: linear-gradient(135deg, #667eea 0%, #764ba2 100%)"
+        >
+          Primary
+        </div>
+        <div
+          class="gradient-box"
+          style="background: linear-gradient(135deg, #f093fb 0%, #f5576c 100%)"
+        >
+          Secondary
+        </div>
+        <div
+          class="gradient-box"
+          style="background: linear-gradient(135deg, #4facfe 0%, #00f2fe 100%)"
+        >
+          Success
+        </div>
+        <div
+          class="gradient-box"
+          style="background: linear-gradient(135deg, #fa709a 0%, #fee140 100%)"
+        >
+          Warm
+        </div>
+        <div
+          class="gradient-box"
+          style="background: linear-gradient(135deg, #30cfd0 0%, #330867 100%)"
+        >
+          Cool
+        </div>
+        <div
+          class="gradient-box"
+          style="background: linear-gradient(135deg, #ff9a56 0%, #ff6a88 100%)"
+        >
+          Sunset
+        </div>
+      </div>
+
+      <h2>Buttons</h2>
+      <div class="component-showcase">
+        <button class="btn btn-primary">Primary Button</button>
+        <button class="btn btn-secondary">Secondary Button</button>
+        <button class="btn btn-success">Success Button</button>
+      </div>
+
+      <h2>Badges</h2>
+      <div class="component-showcase">
+        <span class="badge badge-primary">Primary</span>
+        <span class="badge badge-success">Success</span>
+        <span class="badge badge-warning">Warning</span>
+        <span class="badge badge-error">Error</span>
+      </div>
+
+      <h2>Cards</h2>
+      <div class="card">
+        <h3 style="color: #262626; margin-bottom: 0.5rem">Sample Card</h3>
+        <p style="color: #737373">
+          This is a beautiful card component with soft shadows and rounded
+          corners. Perfect for displaying products, user info, or any content!
+        </p>
+      </div>
+
+      <h2>Typography</h2>
+      <div class="component-showcase">
+        <h1 style="font-size: 2rem; margin-bottom: 0.5rem">Heading 1</h1>
+        <h2 style="font-size: 1.5rem; color: #262626; margin: 0.5rem 0">
+          Heading 2
+        </h2>
+        <h3 style="font-size: 1.25rem; color: #262626; margin: 0.5rem 0">
+          Heading 3
+        </h3>
+        <p style="color: #525252; margin-top: 1rem">
+          Body text is designed for optimal readability with proper line height,
+          color contrast, and font weight. Easy on the eyes for extended
+          reading.
+        </p>
+      </div>
+
+      <div
+        style="
+          text-align: center;
+          margin-top: 4rem;
+          padding: 2rem;
+          background: linear-gradient(135deg, #f0f4ff 0%, #ccfbf1 100%);
+          border-radius: 1.5rem;
+        "
+      >
+        <h2 style="margin: 0 0 1rem 0">
+          Ready to Build Something Beautiful? 🚀
+        </h2>
+        <p style="color: #525252; font-size: 1.125rem">
+          All these design elements are ready to use in your Mobile Store
+          application!
+        </p>
+      </div>
+    </div>
+  </body>
+</html>

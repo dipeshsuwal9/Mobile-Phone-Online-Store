@@ -1,0 +1,38 @@
+[Unit]
+Description=Mobile Store Django Application
+After=network.target postgresql.service
+
+[Service]
+Type=notify
+User=www-data
+Group=www-data
+WorkingDirectory=/path/to/project/backend
+Environment="PATH=/path/to/venv/bin"
+ExecStart=/path/to/venv/bin/gunicorn mobile_store.wsgi:application \
+    --bind 0.0.0.0:8000 \
+    --workers 3 \
+    --worker-class sync \
+    --worker-connections 1000 \
+    --max-requests 1000 \
+    --max-requests-jitter 50 \
+    --timeout 30 \
+    --graceful-timeout 30 \
+    --keep-alive 5 \
+    --log-level info \
+    --access-logfile /var/log/mobile_store/access.log \
+    --error-logfile /var/log/mobile_store/error.log \
+    --capture-output
+
+# Restart policy
+Restart=always
+RestartSec=10
+
+# Security
+NoNewPrivileges=true
+PrivateTmp=true
+ProtectSystem=strict
+ProtectHome=true
+ReadWritePaths=/path/to/project/backend/media /path/to/project/backend/staticfiles /var/log/mobile_store
+
+[Install]
+WantedBy=multi-user.target

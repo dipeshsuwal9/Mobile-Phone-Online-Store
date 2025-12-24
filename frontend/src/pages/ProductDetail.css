@@ -1,0 +1,124 @@
+.product-detail {
+  padding: var(--spacing-2xl) 0;
+  min-height: calc(100vh - 80px);
+}
+
+.back-btn {
+  margin-bottom: var(--spacing-xl);
+}
+
+.detail-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: var(--spacing-3xl);
+  margin-top: var(--spacing-xl);
+}
+
+.detail-image-section {
+  position: sticky;
+  top: 100px;
+  height: fit-content;
+}
+
+.detail-image {
+  width: 100%;
+  height: auto;
+  border-radius: var(--radius-2xl);
+  box-shadow: var(--shadow-xl);
+  object-fit: cover;
+}
+
+.detail-image-placeholder {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  aspect-ratio: 1;
+  background: var(--gradient-cool);
+  border-radius: var(--radius-2xl);
+  font-size: 8rem;
+  color: rgba(255, 255, 255, 0.3);
+}
+
+.detail-info h1 {
+  font-size: 2.5rem;
+  margin-bottom: var(--spacing-md);
+}
+
+.detail-price {
+  font-size: 3rem;
+  font-weight: 700;
+  background: var(--gradient-primary);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+  margin-bottom: var(--spacing-xl);
+}
+
+.detail-specs {
+  margin: var(--spacing-xl) 0;
+  padding: var(--spacing-xl);
+  background: var(--gray-50);
+  border-radius: var(--radius-xl);
+}
+
+.detail-specs h3 {
+  margin-bottom: var(--spacing-lg);
+  color: var(--gray-900);
+}
+
+.specs-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: var(--spacing-md);
+}
+
+.spec-item {
+  display: flex;
+  flex-direction: column;
+  gap: var(--spacing-xs);
+  padding: var(--spacing-md);
+  background: white;
+  border-radius: var(--radius-lg);
+  border: 1px solid var(--gray-200);
+}
+
+.spec-label {
+  font-size: 0.875rem;
+  font-weight: 600;
+  color: var(--gray-600);
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+}
+
+.spec-value {
+  font-size: 1.125rem;
+  font-weight: 600;
+  color: var(--gray-900);
+}
+
+.detail-stock {
+  margin: var(--spacing-xl) 0;
+}
+
+@media (max-width: 968px) {
+  .detail-grid {
+    grid-template-columns: 1fr;
+    gap: var(--spacing-xl);
+  }
+
+  .detail-image-section {
+    position: static;
+  }
+
+  .detail-info h1 {
+    font-size: 2rem;
+  }
+
+  .detail-price {
+    font-size: 2.5rem;
+  }
+
+  .specs-grid {
+    grid-template-columns: 1fr;
+  }
+}

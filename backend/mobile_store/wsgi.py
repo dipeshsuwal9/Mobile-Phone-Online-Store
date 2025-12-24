@@ -1,16 +1,23 @@
 """
-WSGI config for mobile_store project.
-
-It exposes the WSGI callable as a module-level variable named ``application``.
-
-For more information on this file, see
-https://docs.djangoproject.com/en/4.2/howto/deployment/wsgi/
+Production WSGI configuration with enhanced error handling and logging
 """
 
 import os
+import sys
+from pathlib import Path
 
 from django.core.wsgi import get_wsgi_application
 
+# Add project directory to path
+BASE_DIR = Path(__file__).resolve().parent.parent
+sys.path.append(str(BASE_DIR))
+
 os.environ.setdefault('DJANGO_SETTINGS_MODULE', 'mobile_store.settings')
 
-application = get_wsgi_application()
+try:
+    application = get_wsgi_application()
+except Exception as e:
+    # Log the error for debugging
+    import logging
+    logging.error(f"Failed to initialize WSGI application: {e}")
+    raise

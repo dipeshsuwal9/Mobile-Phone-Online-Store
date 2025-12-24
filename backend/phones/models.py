@@ -38,7 +38,8 @@ class MobilePhone(models.Model):
     processor = models.CharField(max_length=200)
     os = models.CharField(max_length=50, choices=OS_CHOICES)
     description = models.TextField(blank=True, null=True)
-    image_url = models.URLField(blank=True, null=True)
+    image_url = models.URLField(blank=True, null=True, help_text='Image URL (optional if image file is uploaded)')
+    image = models.ImageField(upload_to='phones/', blank=True, null=True, help_text='Upload image file (optional if image URL is provided)')
     created_at = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(auto_now=True)
 
@@ -50,6 +51,12 @@ class MobilePhone(models.Model):
 
     def __str__(self):
         return f"{self.brand.brand_name} {self.model_name}"
+    
+    def get_image_url(self):
+        """Return image URL from either uploaded file or URL field"""
+        if self.image:
+            return self.image.url
+        return self.image_url
 
     @property
     def is_in_stock(self):

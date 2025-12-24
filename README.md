@@ -167,7 +167,7 @@ project4/
    DB_USER=postgres
    DB_PASSWORD=your-password
    DB_HOST=localhost
-   DB_PORT=5432
+   DB_PORT=5433
    JWT_ACCESS_TOKEN_LIFETIME=60
    JWT_REFRESH_TOKEN_LIFETIME=1440
    CORS_ALLOWED_ORIGINS=http://localhost:5173,http://127.0.0.1:5173
