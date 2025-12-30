@@ -58,17 +58,17 @@ export interface MobilePhone {
 
 export interface Accessory {
   accessory_id: number;
-  accessory_name: string;
-  accessory_type: string;
-  compatible_models?: string;
+  name: string; // Fixed: was accessory_name
+  category: string; // Fixed: was accessory_type
   price: string;
   stock_quantity: number;
-  brand?: string;
-  color?: string;
+  description?: string;
   image_url?: string;
   image?: string;
   image_display?: string;
-  description?: string;
+  is_in_stock?: boolean;
+  created_at?: string;
+  updated_at?: string;
 }
 
 export interface CartItem {

@@ -23,7 +23,13 @@ const Login: React.FC = () => {
       await login(formData);
       navigate("/");
     } catch (err: any) {
-      setError(err.response?.data?.detail || "Invalid credentials");
+      const errorMessage =
+        err.response?.data?.detail ||
+        err.response?.data?.message ||
+        err.message ||
+        "Invalid credentials";
+      setError(errorMessage);
+      console.error("Login error:", err);
     } finally {
       setLoading(false);
     }

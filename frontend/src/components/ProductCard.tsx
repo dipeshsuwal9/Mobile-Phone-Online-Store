@@ -21,7 +21,7 @@ const ProductCard: React.FC<ProductCardProps> = ({
     : (product as Accessory).accessory_id;
   const name = isPhone
     ? (product as MobilePhone).model_name
-    : (product as Accessory).accessory_name;
+    : (product as Accessory).name; // Fixed: was accessory_name
 
   return (
     <div className="product-card card animate-scaleIn">
@@ -31,6 +31,7 @@ const ProductCard: React.FC<ProductCardProps> = ({
             src={product.image_display || product.image_url}
             alt={name}
             className="product-image"
+            loading="lazy"
           />
         ) : (
           <div className="product-image-placeholder">
@@ -61,7 +62,7 @@ const ProductCard: React.FC<ProductCardProps> = ({
 
         {!isPhone && (
           <p className="product-type">
-            {(product as Accessory).accessory_type}
+            {(product as Accessory).category} {/* Fixed: was accessory_type */}
           </p>
         )}
 

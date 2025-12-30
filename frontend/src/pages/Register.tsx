@@ -41,7 +41,30 @@ const Register: React.FC = () => {
       await register(registerData);
       navigate("/");
     } catch (err: any) {
-      setError(err.response?.data?.message || "Registration failed");
+      let errorMessage = "Registration failed";
+
+      // Handle different error response formats
+      if (err.response?.data) {
+        const data = err.response.data;
+
+        // Check for field-specific errors
+        if (data.email && Array.isArray(data.email)) {
+          errorMessage = data.email[0];
+        } else if (data.password && Array.isArray(data.password)) {
+          errorMessage = data.password[0];
+        } else if (data.detail) {
+          errorMessage = data.detail;
+        } else if (data.message) {
+          errorMessage = data.message;
+        } else if (typeof data === "string") {
+          errorMessage = data;
+        }
+      } else if (err.message) {
+        errorMessage = err.message;
+      }
+
+      setError(errorMessage);
+      console.error("Registration error:", err);
     } finally {
       setLoading(false);
     }

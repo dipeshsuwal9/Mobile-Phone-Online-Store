@@ -4,7 +4,6 @@ import { Accessory, PaginatedResponse } from "../types";
 export const accessoryService = {
   async getAllAccessories(params?: {
     search?: string;
-    type?: string;
   }): Promise<PaginatedResponse<Accessory>> {
     const response = await api.get("/accessories/", {
       params: { ...params, _t: Date.now() },

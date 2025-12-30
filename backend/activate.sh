@@ -1,3 +1,3 @@
 #!/bin/bash
 # Activate virtual environment for backend
-source venv/bin/activate
+source .venv/bin/activate

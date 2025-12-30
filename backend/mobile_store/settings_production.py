@@ -119,4 +119,7 @@ CSRF_TRUSTED_ORIGINS = config(
     cast=lambda v: [s.strip() for s in v.split(',')]
 )
 
-print("🚀 Production settings loaded")
+import logging
+
+logger = logging.getLogger(__name__)
+logger.info("Production settings loaded")
