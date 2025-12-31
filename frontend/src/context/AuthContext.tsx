@@ -54,15 +54,17 @@ export const AuthProvider: React.FC<AuthProviderProps> = ({ children }) => {
   }, []);
 
   const login = async (credentials: LoginCredentials): Promise<void> => {
+    // authService.login already stores tokens in localStorage
     await authService.login(credentials);
+    // Now fetch the current user with the stored token
     const currentUser = await authService.getCurrentUser();
     setUser(currentUser);
   };
 
   const register = async (userData: RegisterData): Promise<void> => {
+    // authService.register already handles registration + auto-login and stores tokens
     const response = await authService.register(userData);
-    localStorage.setItem("access_token", response.tokens.access);
-    localStorage.setItem("refresh_token", response.tokens.refresh);
+    // Tokens are already stored by authService, just set the user
     setUser(response.user);
   };
 

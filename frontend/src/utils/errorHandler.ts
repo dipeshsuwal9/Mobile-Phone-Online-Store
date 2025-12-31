@@ -42,12 +42,12 @@ export const handleApiError = (error: any): string => {
   if (error.response) {
     const { status, data } = error.response;
 
-    // Handle error response with custom format
+    // Handle custom error response format: { "error": { "message": "...", "details": {...} } }
     if (data?.error?.message) {
       return data.error.message;
     }
 
-    // Handle standard error responses
+    // Handle standard DRF error responses
     if (data?.detail) {
       return data.detail;
     }
@@ -86,24 +86,78 @@ export const handleApiError = (error: any): string => {
 
 /**
  * Extract field-specific errors from API response
+ * Handles both Django REST framework format and custom error format
  */
 export const extractFieldErrors = (error: any): Record<string, string> => {
-  if (error.response?.data?.error?.details) {
-    const details = error.response.data.error.details;
-    const fieldErrors: Record<string, string> = {};
+  const fieldErrors: Record<string, string> = {};
 
-    Object.keys(details).forEach((key) => {
-      if (Array.isArray(details[key])) {
-        fieldErrors[key] = details[key][0];
-      } else {
-        fieldErrors[key] = details[key];
-      }
-    });
-
+  if (!error.response?.data) {
     return fieldErrors;
   }
 
-  return {};
+  const data = error.response.data;
+
+  // Format 1: Custom error format { "error": { "details": { "field": ["error"] } } }
+  if (data?.error?.details && typeof data.error.details === "object") {
+    Object.keys(data.error.details).forEach((key) => {
+      const value = data.error.details[key];
+      if (Array.isArray(value) && value.length > 0) {
+        fieldErrors[key] = value[0];
+      } else if (typeof value === "string") {
+        fieldErrors[key] = value;
+      }
+    });
+    return fieldErrors;
+  }
+
+  // Format 2: Direct field errors { "field": ["error message"] }
+  Object.keys(data).forEach((key) => {
+    // Skip non-field keys
+    if (
+      ["detail", "message", "error", "success", "non_field_errors"].includes(
+        key
+      )
+    ) {
+      return;
+    }
+
+    const value = data[key];
+
+    if (Array.isArray(value) && value.length > 0) {
+      // Handle array of error messages
+      fieldErrors[key] = value[0];
+    } else if (typeof value === "string") {
+      // Handle direct string error
+      fieldErrors[key] = value;
+    } else if (typeof value === "object" && value !== null) {
+      // Handle nested errors (e.g., password validation)
+      const nestedError = Object.values(value)[0];
+      if (typeof nestedError === "string") {
+        fieldErrors[key] = nestedError;
+      } else if (Array.isArray(nestedError) && nestedError.length > 0) {
+        fieldErrors[key] = nestedError[0];
+      }
+    }
+  });
+
+  // Handle non_field_errors
+  if (data.non_field_errors && Array.isArray(data.non_field_errors)) {
+    fieldErrors.general = data.non_field_errors[0];
+  }
+
+  // Handle email-specific errors (Django's unique constraint message)
+  if (fieldErrors.email && fieldErrors.email.includes("already exists")) {
+    fieldErrors.email =
+      "An account with this email already exists. Please use a different email or try logging in.";
+  }
+
+  // Handle password2 errors (map to confirmPassword for consistency)
+  if (fieldErrors.password2) {
+    fieldErrors.confirmPassword = fieldErrors.password2;
+    delete fieldErrors.password2;
+  }
+
+  return fieldErrors;
 };
 
 /**
@@ -112,16 +166,12 @@ export const extractFieldErrors = (error: any): Record<string, string> => {
 export const logError = (error: any, context?: string): void => {
   if (import.meta.env.DEV) {
     const timestamp = new Date().toISOString();
-    const errorInfo = {
-      timestamp,
-      context,
-      error: {
-        message: error.message,
-        stack: error.stack,
-        response: error.response?.data,
-      },
-    };
-    // Only log in development
+    console.error(`[${timestamp}] Error in ${context || "unknown"}:`, {
+      message: error.message,
+      stack: error.stack,
+      response: error.response?.data,
+      status: error.response?.status,
+    });
   }
 };
 

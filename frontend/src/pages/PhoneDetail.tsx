@@ -3,6 +3,7 @@ import { useParams, useNavigate } from "react-router-dom";
 import { FiShoppingCart, FiArrowLeft } from "react-icons/fi";
 import { phoneService } from "../services/phoneService";
 import { useCart } from "../context/CartContext";
+import { useToast } from "../components/Toast";
 import { MobilePhone } from "../types";
 import "./ProductDetail.css";
 
@@ -12,6 +13,7 @@ const PhoneDetail: React.FC = () => {
   const [phone, setPhone] = useState<MobilePhone | null>(null);
   const [loading, setLoading] = useState(true);
   const { addToCart } = useCart();
+  const { showToast } = useToast();
 
   useEffect(() => {
     if (id) {
@@ -34,9 +36,9 @@ const PhoneDetail: React.FC = () => {
     if (phone) {
       try {
         await addToCart("PHONE", phone.phone_id, 1);
-        alert("Added to cart!");
+        showToast("✓ Added to cart successfully!", "success");
       } catch (error) {
-        alert("Failed to add to cart");
+        showToast("Failed to add to cart. Please try again.", "error");
       }
     }
   };

@@ -3,6 +3,7 @@ import { useParams, useNavigate } from "react-router-dom";
 import { FiShoppingCart, FiArrowLeft, FiPackage } from "react-icons/fi";
 import { accessoryService } from "../services/accessoryService";
 import { useCart } from "../context/CartContext";
+import { useToast } from "../components/Toast";
 import { Accessory } from "../types";
 import "./ProductDetail.css";
 
@@ -12,6 +13,7 @@ const AccessoryDetail: React.FC = () => {
   const [accessory, setAccessory] = useState<Accessory | null>(null);
   const [loading, setLoading] = useState(true);
   const { addToCart } = useCart();
+  const { showToast } = useToast();
 
   useEffect(() => {
     if (id) {
@@ -34,9 +36,9 @@ const AccessoryDetail: React.FC = () => {
     if (accessory) {
       try {
         await addToCart("ACCESSORY", accessory.accessory_id, 1);
-        alert("Added to cart!");
+        showToast("✓ Added to cart successfully!", "success");
       } catch (error) {
-        alert("Failed to add to cart");
+        showToast("Failed to add to cart. Please try again.", "error");
       }
     }
   };

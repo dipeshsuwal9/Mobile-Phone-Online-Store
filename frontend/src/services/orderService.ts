@@ -17,7 +17,7 @@ export const orderService = {
   },
 
   async createOrderFromCart(data: CreateOrderData): Promise<Order> {
-    const response = await api.post("/orders/from-cart/", data);
+    const response = await api.post("/orders/create_from_cart/", data);
     return response.data;
   },
 

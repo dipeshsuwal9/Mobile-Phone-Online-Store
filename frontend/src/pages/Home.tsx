@@ -38,7 +38,9 @@ const Home: React.FC = () => {
 
       <section className="features">
         <div className="container">
-          <h2 className="section-title text-center">Why Choose MobileStore?</h2>
+          <h2 className="section-title text-center">
+            Why Choose PhoneZone Nepal?
+          </h2>
           <div className="features-grid">
             <div className="feature-card card">
               <div className="feature-icon primary">
@@ -95,7 +97,7 @@ const Home: React.FC = () => {
         <div className="container">
           <div className="cta-card glass">
             <h2>Ready to Find Your Next Phone?</h2>
-            <p>Join thousands of happy customers who trust MobileStore</p>
+            <p>Join thousands of happy customers who trust PhoneZone Nepal</p>
             <Link to="/phones" className="btn btn-primary btn-large">
               Start Shopping Now
             </Link>

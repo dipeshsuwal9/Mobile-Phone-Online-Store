@@ -4,7 +4,12 @@ from rest_framework.response import Response
 from rest_framework.permissions import IsAuthenticated, AllowAny
 from rest_framework_simplejwt.views import TokenObtainPairView
 from .models import Customer
-from .serializers import CustomerSerializer, CustomerRegistrationSerializer, ChangePasswordSerializer
+from .serializers import (
+    CustomerSerializer, 
+    CustomerRegistrationSerializer, 
+    ChangePasswordSerializer,
+    CustomTokenObtainPairSerializer
+)
 
 
 class CustomerRegistrationView(generics.CreateAPIView):
@@ -15,8 +20,9 @@ class CustomerRegistrationView(generics.CreateAPIView):
 
 
 class CustomerLoginView(TokenObtainPairView):
-    """View for customer login using JWT"""
+    """View for customer login using JWT with email"""
     permission_classes = [AllowAny]
+    serializer_class = CustomTokenObtainPairSerializer
 
 
 class CustomerViewSet(viewsets.ModelViewSet):

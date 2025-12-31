@@ -32,8 +32,13 @@ const Checkout: React.FC = () => {
 
       await clearCart();
       navigate(`/orders/${order.order_id}`);
-    } catch (error) {
-      alert("Checkout failed");
+    } catch (error: any) {
+      console.error("Checkout error:", error);
+      const errorMessage =
+        error.response?.data?.error ||
+        error.message ||
+        "Checkout failed. Please try again.";
+      alert(errorMessage);
     } finally {
       setLoading(false);
     }
@@ -80,10 +85,6 @@ const Checkout: React.FC = () => {
                 })
               }
             >
-              <option value="CREDIT_CARD">Credit Card</option>
-              <option value="DEBIT_CARD">Debit Card</option>
-              <option value="UPI">UPI</option>
-              <option value="NET_BANKING">Net Banking</option>
               <option value="CASH_ON_DELIVERY">Cash on Delivery</option>
             </select>
           </div>

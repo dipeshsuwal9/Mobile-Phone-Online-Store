@@ -13,12 +13,12 @@ interface UpdateCartItemData {
 
 export const cartService = {
   async getCart(): Promise<Cart> {
-    const response = await api.get("/cart/");
+    const response = await api.get("/cart/my_cart/");
     return response.data;
   },
 
   async addToCart(data: AddToCartData): Promise<Cart> {
-    const response = await api.post("/cart/items/", data);
+    const response = await api.post("/cart/add_item/", data);
     return response.data;
   },
 
@@ -26,16 +26,21 @@ export const cartService = {
     itemId: number,
     data: UpdateCartItemData
   ): Promise<Cart> {
-    const response = await api.patch(`/cart/items/${itemId}/`, data);
+    const response = await api.patch("/cart/update_item/", {
+      cart_item_id: itemId,
+      ...data,
+    });
     return response.data;
   },
 
   async removeFromCart(itemId: number): Promise<void> {
-    await api.delete(`/cart/items/${itemId}/`);
+    await api.delete("/cart/remove_item/", {
+      params: { cart_item_id: itemId },
+    });
   },
 
   async clearCart(): Promise<void> {
-    await api.delete("/cart/clear/");
+    await api.delete("/cart/clear_cart/");
   },
 };
 

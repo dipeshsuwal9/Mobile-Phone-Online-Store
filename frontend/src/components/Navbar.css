@@ -1,8 +1,16 @@
+/* Navbar Styles - Updated */
 .navbar {
   position: sticky;
   top: 0;
   z-index: var(--z-sticky);
   padding: var(--spacing-md) 0;
+  background: linear-gradient(
+    180deg,
+    var(--gray-50) 0%,
+    var(--primary-50) 100%
+  ) !important;
+  backdrop-filter: none !important;
+  border: none !important;
   box-shadow: var(--shadow-md);
   animation: slideInLeft var(--transition-base);
 }
@@ -71,6 +79,16 @@
 }
 
 .nav-link:hover::after {
+  width: 80%;
+}
+
+.nav-link.active {
+  color: var(--primary-600);
+  background: var(--primary-50);
+  font-weight: 600;
+}
+
+.nav-link.active::after {
   width: 80%;
 }
 

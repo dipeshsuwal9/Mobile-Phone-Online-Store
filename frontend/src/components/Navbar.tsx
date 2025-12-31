@@ -1,5 +1,5 @@
 import React from "react";
-import { Link } from "react-router-dom";
+import { Link, useLocation } from "react-router-dom";
 import {
   FiShoppingCart,
   FiUser,
@@ -14,20 +14,31 @@ import "./Navbar.css";
 const Navbar: React.FC = () => {
   const { isAuthenticated, user, logout } = useAuth();
   const { totalItems } = useCart();
+  const location = useLocation();
 
   return (
-    <nav className="navbar glass">
+    <nav className="navbar">
       <div className="container navbar-container">
         <Link to="/" className="navbar-brand">
           <FiSmartphone className="navbar-logo" />
-          <span className="gradient-text">MobileStore</span>
+          <span className="gradient-text">PhoneZone</span>
         </Link>
 
         <div className="navbar-links">
-          <Link to="/phones" className="nav-link">
+          <Link
+            to="/phones"
+            className={`nav-link ${
+              location.pathname === "/phones" ? "active" : ""
+            }`}
+          >
             Phones
           </Link>
-          <Link to="/accessories" className="nav-link">
+          <Link
+            to="/accessories"
+            className={`nav-link ${
+              location.pathname === "/accessories" ? "active" : ""
+            }`}
+          >
             Accessories
           </Link>
         </div>
@@ -35,13 +46,23 @@ const Navbar: React.FC = () => {
         <div className="navbar-actions">
           {isAuthenticated ? (
             <>
-              <Link to="/cart" className="nav-link cart-link">
+              <Link
+                to="/cart"
+                className={`nav-link cart-link ${
+                  location.pathname === "/cart" ? "active" : ""
+                }`}
+              >
                 <FiShoppingCart />
                 {totalItems > 0 && (
                   <span className="cart-badge">{totalItems}</span>
                 )}
               </Link>
-              <Link to="/orders" className="nav-link">
+              <Link
+                to="/orders"
+                className={`nav-link ${
+                  location.pathname === "/orders" ? "active" : ""
+                }`}
+              >
                 <FiPackage />
               </Link>
               <div className="user-menu">

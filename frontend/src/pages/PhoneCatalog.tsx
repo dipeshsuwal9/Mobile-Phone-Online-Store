@@ -3,6 +3,7 @@ import { FiSearch, FiRefreshCw } from "react-icons/fi";
 import ProductCard from "../components/ProductCard";
 import { phoneService } from "../services/phoneService";
 import { useCart } from "../context/CartContext";
+import { useToast } from "../components/Toast";
 import { MobilePhone } from "../types";
 import "./Catalog.css";
 
@@ -11,6 +12,7 @@ const PhoneCatalog: React.FC = () => {
   const [loading, setLoading] = useState(true);
   const [search, setSearch] = useState("");
   const { addToCart } = useCart();
+  const { showToast } = useToast();
 
   useEffect(() => {
     loadPhones();
@@ -39,9 +41,9 @@ const PhoneCatalog: React.FC = () => {
   const handleAddToCart = async (phoneId: number) => {
     try {
       await addToCart("PHONE", phoneId, 1);
-      alert("Added to cart!");
+      showToast("✓ Added to cart successfully!", "success");
     } catch (error) {
-      alert("Failed to add to cart");
+      showToast("Failed to add to cart. Please try again.", "error");
     }
   };
 

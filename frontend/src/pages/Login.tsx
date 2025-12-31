@@ -2,6 +2,7 @@ import React, { useState, FormEvent } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import { FiMail, FiLock, FiAlertCircle } from "react-icons/fi";
 import { useAuth } from "../context/AuthContext";
+import { handleApiError } from "../utils/errorHandler";
 import "./Auth.css";
 
 const Login: React.FC = () => {
@@ -17,19 +18,52 @@ const Login: React.FC = () => {
   const handleSubmit = async (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     setError("");
+
+    // Basic validation
+    if (!formData.email.trim()) {
+      setError("Email is required");
+      return;
+    }
+
+    if (!formData.password) {
+      setError("Password is required");
+      return;
+    }
+
     setLoading(true);
 
     try {
       await login(formData);
       navigate("/");
     } catch (err: any) {
-      const errorMessage =
-        err.response?.data?.detail ||
-        err.response?.data?.message ||
-        err.message ||
-        "Invalid credentials";
+      if (import.meta.env.DEV) {
+        console.error("Login error:", {
+          message: err.message,
+          response: err.response?.data,
+          status: err.response?.status,
+        });
+      }
+
+      let errorMessage = "Login failed. Please try again.";
+
+      // Handle "No active account found with the given credentials" error
+      if (err.response?.data?.detail) {
+        const detail = err.response.data.detail;
+        if (detail.includes("No active account")) {
+          errorMessage =
+            "Invalid email or password. Please check your credentials and try again.";
+        } else {
+          errorMessage = detail;
+        }
+      } else if (err.response?.data?.error?.message) {
+        errorMessage = err.response.data.error.message;
+      } else if (err.response?.status === 401) {
+        errorMessage = "Invalid email or password. Please try again.";
+      } else if (err.message) {
+        errorMessage = handleApiError(err);
+      }
+
       setError(errorMessage);
-      console.error("Login error:", err);
     } finally {
       setLoading(false);
     }
@@ -64,8 +98,8 @@ const Login: React.FC = () => {
                 onChange={(e) =>
                   setFormData({ ...formData, email: e.target.value })
                 }
-                placeholder="you@example.com"
-                required
+                placeholder="ram@example.com"
+                autoComplete="email"
               />
             </div>
 
@@ -82,7 +116,7 @@ const Login: React.FC = () => {
                   setFormData({ ...formData, password: e.target.value })
                 }
                 placeholder="••••••••"
-                required
+                autoComplete="current-password"
               />
             </div>
 
